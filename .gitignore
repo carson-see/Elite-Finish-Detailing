@@ -3,3 +3,11 @@
 .vscode/
 .idea/
 node_modules/
+
+# Tailwind CLI binary (platform-specific, download per machine)
+tailwindcss
+tailwindcss-*
+
+# Local screenshots and scratch files
+screen 2.png
+screen.png/
