@@ -6,7 +6,7 @@
 
 <!-- SEO / Primary meta -->
 <title>Elite Finish Detailing | Mobile Car Detailing in Omaha, NE</title>
-<meta name="description" content="Omaha's mobile car detailing service. Nixon and Blake drive to your home or office and wash your vehicle inside, outside, or both. Book and pay online in under a minute."/>
+<meta name="description" content="Omaha's mobile car detailing service. Nixon and Blake drive to your home or office and wash your vehicle inside, outside, or both. Book online in under a minute. Cash on completion."/>
 <meta name="keywords" content="car detailing Omaha, mobile car wash Omaha, mobile detailing Nebraska, car wash Elkhorn, detailing Papillion, interior detail Omaha, exterior detail Omaha, Elite Finish Detailing"/>
 <meta name="author" content="Elite Finish Detailing"/>
 <meta name="robots" content="index, follow"/>
@@ -19,7 +19,7 @@
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://elitefinishomaha.com/"/>
 <meta property="og:title" content="Elite Finish Detailing | Mobile Car Detailing in Omaha"/>
-<meta property="og:description" content="We drive to your driveway and detail your car inside, outside, or both. Book and pay online."/>
+<meta property="og:description" content="We drive to your driveway and detail your car inside, outside, or both. Book online. Cash on completion."/>
 <meta property="og:image" content="https://elitefinishomaha.com/images/logo-wordmark.png"/>
 <meta property="og:image:width" content="1236"/>
 <meta property="og:image:height" content="1240"/>
@@ -30,7 +30,7 @@
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Elite Finish Detailing | Mobile Car Detailing in Omaha"/>
-<meta name="twitter:description" content="Omaha's mobile car detailing. We come to you. Book and pay online."/>
+<meta name="twitter:description" content="Omaha's mobile car detailing. We come to you. Book online. Cash on completion."/>
 <meta name="twitter:image" content="https://elitefinishomaha.com/images/logo-wordmark.png"/>
 
 <!-- LocalBusiness / AutoWash structured data for Google -->
@@ -44,7 +44,7 @@
   "url": "https://elitefinishomaha.com/",
   "telephone": "+14026797198",
   "priceRange": "$40–$150",
-  "description": "Mobile car detailing service based in Shelby, NE serving the greater Omaha metro. Interior, exterior, or both — booked and paid online.",
+  "description": "Mobile car detailing service based in Shelby, NE serving the greater Omaha metro. Interior, exterior, or both — booked online, cash on completion.",
   "slogan": "Drive Clean. Drive Confident.",
   "address": {
     "@type": "PostalAddress",
@@ -265,6 +265,13 @@
     transition: all .2s ease; font-size: 15px;
   }
   .field:focus { outline: none; border-color:#f2ca50; box-shadow: 0 0 0 3px rgba(242,202,80,0.18); }
+  /* Tint the native date picker calendar icon to match the brand */
+  .field-date::-webkit-calendar-picker-indicator {
+    filter: invert(83%) sepia(29%) saturate(1089%) hue-rotate(356deg) brightness(98%) contrast(94%);
+    cursor: pointer;
+    opacity: 0.9;
+  }
+  .field-date::-webkit-calendar-picker-indicator:hover { opacity: 1; }
   .field-label {
     display:block; font-size:11px; letter-spacing:.22em; text-transform:uppercase;
     color:#f2ca50; font-weight:700; margin-bottom:8px;
@@ -308,61 +315,64 @@
 <main id="top">
 
 <!-- HERO -->
-<section class="relative min-h-[88vh] flex items-center overflow-hidden pt-24 pb-20">
-  <!-- Background layers -->
-  <div class="absolute inset-0 z-0 stardust opacity-70"></div>
+<section class="relative min-h-[92vh] flex items-center overflow-hidden pt-24 pb-20">
+  <!-- Background: full-bleed luxury car photo. Visible on the right, faded into surface on the left for text legibility. -->
   <div class="absolute inset-0 z-0">
-    <img class="w-full h-full object-cover opacity-25"
-      src="https://images.unsplash.com/photo-1605515298946-d664e9ac75f3?auto=format&fit=crop&w=2000&q=80"
-      alt=""/>
-    <div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/90 to-surface/55"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+    <img class="w-full h-full object-cover object-[65%_center]"
+      src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=2400&q=80"
+      alt="Luxury sedan in a dark studio — the kind of detail-worthy vehicle Elite Finish washes"/>
+    <!-- Left-to-right fade: opaque on the left, transparent on the right so the car shows through -->
+    <div class="absolute inset-0 bg-gradient-to-r from-surface from-10% via-surface/85 via-45% to-transparent to-75%"></div>
+    <!-- Bottom fade to anchor content against the section below -->
+    <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-surface to-transparent"></div>
+    <!-- Atmospheric color glows -->
     <div class="absolute top-1/4 right-0 w-[900px] h-[900px] rounded-full pointer-events-none"
-         style="background: radial-gradient(circle, rgba(72,98,184,0.32) 0%, transparent 60%); filter: blur(80px);"></div>
+         style="background: radial-gradient(circle, rgba(72,98,184,0.28) 0%, transparent 60%); filter: blur(80px);"></div>
     <div class="absolute -bottom-40 -left-40 w-[700px] h-[700px] rounded-full pointer-events-none"
-         style="background: radial-gradient(circle, rgba(242,202,80,0.22) 0%, transparent 60%); filter: blur(70px);"></div>
+         style="background: radial-gradient(circle, rgba(242,202,80,0.2) 0%, transparent 60%); filter: blur(70px);"></div>
   </div>
+  <div class="absolute inset-0 z-[1] stardust opacity-50 pointer-events-none"></div>
 
-  <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+  <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
     <!-- Left: copy + CTAs -->
     <div class="lg:col-span-7 space-y-8">
       <div class="flex items-center gap-4">
         <div class="w-12 h-px bg-primary"></div>
         <span class="text-primary tracking-[0.35em] uppercase font-bold text-[11px]">Omaha's Mobile Detailing</span>
       </div>
-      <h1 class="font-headline text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.95] tracking-tight uppercase">
+      <h1 class="font-headline text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.95] tracking-tight uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
         We come<br/>
         to <span class="gold-gradient-text italic normal-case font-normal">you.</span>
       </h1>
       <p class="text-ink-dim text-lg md:text-xl max-w-xl font-light leading-relaxed">
-        Drive clean. Drive confident. Elite Finish Detailing brings professional car washing straight to your driveway in Omaha and the surrounding metro &mdash; booked and paid online in under a minute.
+        Drive clean. Drive confident. Elite Finish Detailing brings professional car washing straight to your driveway in Omaha and the surrounding metro &mdash; booked online in under a minute, cash on completion.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 pt-2">
         <a href="#book" class="gold-gradient-bg text-on-primary font-black py-5 px-10 rounded text-[12px] tracking-[0.25em] uppercase hover:shadow-[0_0_40px_rgba(242,202,80,0.55)] transition text-center">
-          Book &amp; Pay Online
+          Book Online
         </a>
-        <a href="#services" class="ghost-gold font-black py-5 px-10 rounded text-[12px] tracking-[0.25em] uppercase text-center">
+        <a href="#pricing" class="ghost-gold font-black py-5 px-10 rounded text-[12px] tracking-[0.25em] uppercase text-center bg-surface/60 backdrop-blur-sm">
           See Pricing
         </a>
       </div>
       <div class="pt-1">
-        <a href="tel:4026797198" class="inline-flex items-center gap-2 text-ink-dim hover:text-primary transition text-sm font-medium">
+        <a href="tel:4022784466" class="inline-flex items-center gap-2 text-ink-dim hover:text-primary transition text-sm font-medium">
           <span class="material-symbols-outlined text-primary text-base">call</span>
-          Or call Nixon &mdash; <span class="text-primary font-bold">(402) 679-7198</span>
+          Or call Blake &mdash; <span class="text-primary font-bold">(402) 278-4466</span>
         </a>
       </div>
       <div class="flex flex-wrap gap-x-10 gap-y-4 pt-4 text-[11px] tracking-[0.15em] uppercase text-ink-dim font-bold">
         <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">home_work</span>We come to you</div>
         <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">schedule</span>60-second booking</div>
-        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">credit_card</span>Secure online pay</div>
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">payments</span>Cash on completion</div>
       </div>
     </div>
 
-    <!-- Right: signature price card -->
+    <!-- Right: signature price card, floating OVER the car image -->
     <div class="lg:col-span-5 relative">
       <div class="absolute -top-6 -left-6 w-full h-full border border-primary/25 rounded pointer-events-none hidden lg:block"></div>
       <div class="absolute -bottom-6 -right-6 w-full h-full border border-royal-light/30 rounded pointer-events-none hidden lg:block"></div>
-      <div class="gold-card relative p-8 md:p-10 space-y-6">
+      <div class="gold-card relative p-8 md:p-10 space-y-6 glass shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)]">
         <div class="flex items-center justify-between">
           <span class="text-primary tracking-[0.3em] uppercase text-[10px] font-black">Today's Rates</span>
           <span class="text-[10px] tracking-[0.2em] uppercase text-ink-dim font-bold">Flat pricing</span>
@@ -386,7 +396,7 @@
             <span class="font-black gold-gradient-text text-base">$100</span>
           </div>
         </div>
-        <a href="#services" class="learn-more !text-[10px]">See full pricing <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+        <a href="#pricing" class="learn-more !text-[10px]">See full pricing <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
       </div>
     </div>
   </div>
@@ -419,10 +429,10 @@
       </div>
       <!-- Step 3 -->
       <div class="gold-card p-10 text-center">
-        <div class="flex justify-center mb-6"><div class="gold-badge"><span class="material-symbols-outlined text-primary text-3xl">credit_card</span></div></div>
+        <div class="flex justify-center mb-6"><div class="gold-badge"><span class="material-symbols-outlined text-primary text-3xl">payments</span></div></div>
         <div class="text-primary font-bold tracking-[0.25em] uppercase text-[10px] mb-3">Step 03</div>
-        <h3 class="font-headline text-2xl uppercase tracking-wide mb-4">Pay Online</h3>
-        <p class="text-ink-dim text-sm leading-relaxed">Pay securely by card when we finish. No cash needed, no awkward tips &mdash; just a clean car.</p>
+        <h3 class="font-headline text-2xl uppercase tracking-wide mb-4">Pay Cash</h3>
+        <p class="text-ink-dim text-sm leading-relaxed">Cash payment when we finish. Simple and straightforward &mdash; no hidden fees, no surprises.</p>
       </div>
     </div>
   </div>
@@ -498,7 +508,12 @@
               <th class="py-5 px-4">Vehicle</th>
               <th class="py-5 px-4 text-center">Exterior</th>
               <th class="py-5 px-4 text-center">Interior</th>
-              <th class="py-5 px-4 text-right bg-primary/10 relative">Elite Finish<span class="absolute top-0 right-4 text-[8px] text-primary font-black tracking-[0.2em] uppercase -translate-y-1/2 bg-surface px-2 py-0.5 rounded" style="border:1px solid rgba(242,202,80,0.5)">Best Value</span></th>
+              <th class="py-5 px-4 text-right bg-primary/10">
+                <div class="flex flex-col items-end gap-1.5">
+                  <span class="text-[8px] text-primary font-black tracking-[0.25em] uppercase bg-primary/15 px-2 py-0.5 rounded" style="border:1px solid rgba(242,202,80,0.5)">Best Value</span>
+                  <span>Elite Finish</span>
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody class="divide-y divide-primary/10">
@@ -563,8 +578,8 @@
             Every exotic or classic is different. Send us a few photos of your vehicle and what you're looking for, and we'll quote you directly &mdash; usually within a few hours.
           </p>
           <div class="flex flex-col gap-3">
-            <a href="tel:4026797198" class="gold-gradient-bg text-on-primary font-black py-4 px-6 rounded text-center text-[12px] tracking-[0.2em] uppercase hover:shadow-[0_0_30px_rgba(242,202,80,0.5)] transition">
-              Call Nixon &mdash; (402) 679-7198
+            <a href="tel:4022784466" class="gold-gradient-bg text-on-primary font-black py-4 px-6 rounded text-center text-[12px] tracking-[0.2em] uppercase hover:shadow-[0_0_30px_rgba(242,202,80,0.5)] transition">
+              Call Blake &mdash; (402) 278-4466
             </a>
             <a href="#book" onclick="document.getElementById('vehicle').value='Exotic/Classic'; document.getElementById('service').value='Custom Quote'; updateEstimate();"
                class="ghost-gold font-black py-4 px-6 rounded text-center text-[12px] tracking-[0.2em] uppercase">
@@ -703,7 +718,7 @@
       <span class="text-primary tracking-[0.35em] uppercase text-[11px] font-black">Book Your Detail</span>
       <h2 class="font-headline text-4xl md:text-6xl mt-3 uppercase tracking-tight">Let's Get Your Car Clean</h2>
       <div class="flourish"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
-      <p class="text-ink-dim mt-6 max-w-xl mx-auto text-sm">Fill out the form and we'll text you to confirm the appointment. Payment link is sent once the detail is complete.</p>
+      <p class="text-ink-dim mt-6 max-w-xl mx-auto text-sm">Fill out the form and we'll text you to confirm the appointment. Cash payment due when we finish the detail.</p>
     </div>
 
     <form id="bookingForm" class="gold-card p-8 md:p-12 space-y-8" novalidate>
@@ -751,7 +766,10 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label class="field-label" for="date">Preferred Date</label>
-          <input class="field" id="date" name="date" type="date" required/>
+          <input class="field field-date" id="date" name="date" type="date" required
+                 onclick="if (this.showPicker) this.showPicker();"
+                 onfocus="if (this.showPicker) this.showPicker();"
+                 style="cursor: pointer;"/>
         </div>
         <div>
           <label class="field-label" for="time">Preferred Time</label>
@@ -804,7 +822,7 @@
           We'll text you within 30 minutes to confirm the appointment.
         </p>
         <p class="text-[11px] text-ink-dim tracking-wide">
-          No payment taken now &mdash; you pay via a secure Stripe link once the detail is complete.
+          Cash payment due when we finish the detail. No card needed, no tips expected.
         </p>
         <p class="text-[10px] text-ink-dim/70 tracking-wide pt-1">By submitting, you agree to be contacted by phone or email to confirm your appointment.</p>
       </div>
@@ -870,6 +888,17 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Block past dates in the booking form's date picker.
+  (function setDateMin() {
+    const dateEl = document.getElementById('date');
+    if (!dateEl) return;
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    dateEl.min = `${yyyy}-${mm}-${dd}`;
+  })();
 
   // ----- Booking backend configuration -----
   // TODO: Replace with the real Formspree endpoint once Nixon/Blake sign up at formspree.io
@@ -953,7 +982,7 @@
           f.reset(); updateEstimate();
         } else { throw new Error('Network error'); }
       } catch (err) {
-        status.textContent = 'Hmm, something went wrong. Please call Nixon directly at (402) 679-7198.';
+        status.textContent = 'Hmm, something went wrong. Please call Blake directly at (402) 278-4466.';
         status.classList.add('text-red-400');
       } finally {
         setBusy(false);
@@ -963,7 +992,7 @@
       // Warn the user BEFORE we try to open their mail client so they're not confused.
       const proceed = confirm(
         "Our online form backend isn't connected yet — submitting will open your email app with the booking details pre-filled. " +
-        "\n\nPrefer to skip that? Click Cancel and call Nixon directly at (402) 679-7198."
+        "\n\nPrefer to skip that? Click Cancel and call Blake directly at (402) 278-4466."
       );
       if (!proceed) { return; }
       const body = encodeURIComponent(
