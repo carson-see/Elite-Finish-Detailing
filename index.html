@@ -16,6 +16,7 @@
 <meta name="last-modified" content="2026-04-17"/>
 <link rel="icon" type="image/png" href="/images/logo-favicon-256.png"/>
 <link rel="apple-touch-icon" href="/images/logo-favicon-256.png"/>
+<link rel="manifest" href="/manifest.json"/>
 
 <!-- Agent & LLM discovery -->
 <link rel="alternate" type="application/json" href="/agents.json" title="Agent API specification"/>
@@ -471,12 +472,27 @@
       <a class="text-xs font-bold tracking-[0.2em] uppercase text-ink/80 hover:text-primary focus-visible:text-primary focus-visible:outline-none transition" href="#services">Services</a>
       <a class="text-xs font-bold tracking-[0.2em] uppercase text-ink/80 hover:text-primary focus-visible:text-primary focus-visible:outline-none transition" href="#gallery">Gallery</a>
       <a class="text-xs font-bold tracking-[0.2em] uppercase text-ink/80 hover:text-primary focus-visible:text-primary focus-visible:outline-none transition" href="#about">Owners</a>
+      <a class="text-xs font-bold tracking-[0.2em] uppercase text-ink/80 hover:text-primary focus-visible:text-primary focus-visible:outline-none transition" href="/track.html">Track</a>
     </div>
     <a href="#book" class="ghost-gold font-bold py-2.5 px-6 rounded-full text-[11px] tracking-[0.22em] uppercase">
       Book Now
     </a>
   </nav>
 </header>
+
+<!-- PWA Install Banner -->
+<div id="installBanner" class="hidden fixed top-[65px] left-0 right-0 z-40 glass border-b border-primary/30">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-primary text-lg">install_mobile</span>
+      <span class="text-[11px] tracking-[0.1em] uppercase font-bold text-ink-dim">Install Elite Finish for quick booking</span>
+    </div>
+    <div class="flex gap-2">
+      <button onclick="installPWA()" class="gold-gradient-bg text-on-primary font-black py-1.5 px-4 rounded text-[10px] tracking-[0.15em] uppercase">Install</button>
+      <button onclick="dismissInstall()" class="text-ink-dim/60 hover:text-ink text-[10px] px-2">Dismiss</button>
+    </div>
+  </div>
+</div>
 
 <main id="top">
 
@@ -604,6 +620,17 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- 3D CAR TRANSFORMATION -->
+<section id="car3d" class="relative py-16 md:py-24 overflow-hidden">
+  <div class="text-center mb-8 px-6">
+    <span class="text-primary tracking-[0.35em] uppercase text-[11px] font-black">The Transformation</span>
+    <h2 class="font-headline text-3xl md:text-5xl mt-3 uppercase tracking-tight">From Dull to Dazzling</h2>
+    <div class="flourish"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+  </div>
+  <div id="car3d-canvas" class="w-full h-[350px] md:h-[450px]"></div>
+  <p class="text-center text-ink-dim/40 text-[10px] tracking-[0.2em] uppercase mt-4">Scroll to transform</p>
 </section>
 
 <!-- SERVICES -->
@@ -971,6 +998,16 @@
           </select>
         </div>
       </div>
+      <!-- Weather hint (appears when a date within 7 days is selected) -->
+      <div id="weatherHint" class="hidden rounded p-4 text-sm" style="background:#0a1222; border:1px solid rgba(58,69,107,0.3);">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-primary text-lg mt-0.5" id="weatherIcon">wb_sunny</span>
+          <div>
+            <span id="weatherText" class="text-ink-dim"></span>
+            <span id="weatherAlt" class="text-primary text-xs block mt-1 hidden"></span>
+          </div>
+        </div>
+      </div>
       <div>
         <label class="field-label" for="address">Service Address</label>
         <input class="field" id="address" name="address" type="text" required placeholder="Street, City, ZIP"/>
@@ -1308,6 +1345,158 @@ ${data.notes || '—'}`);
     }
   });
 
+  // ----- Weather-Aware Booking -----
+  (function initWeather() {
+    const dateEl = document.getElementById('date');
+    if (!dateEl) return;
+    let weatherCache = null;
+
+    async function fetchForecast() {
+      if (weatherCache) return weatherCache;
+      try {
+        const res = await fetch(
+          'https://api.open-meteo.com/v1/forecast?latitude=41.2565&longitude=-95.9345' +
+          '&daily=weathercode,temperature_2m_max,precipitation_probability_max' +
+          '&timezone=America/Chicago&forecast_days=7'
+        );
+        const data = await res.json();
+        weatherCache = data.daily;
+        return weatherCache;
+      } catch { return null; }
+    }
+
+    const WMO = {
+      clear: [0, 1, 2, 3],
+      fog: [45, 48],
+      drizzle: [51, 53, 55, 56, 57],
+      rain: [61, 63, 65, 66, 67],
+      snow: [71, 73, 75, 77],
+      showers: [80, 81, 82],
+      storm: [95, 96, 99],
+    };
+
+    function weatherInfo(code) {
+      if (WMO.clear.includes(code))   return { icon: 'wb_sunny', text: 'Great day for a detail!', warn: false };
+      if (WMO.fog.includes(code))     return { icon: 'foggy', text: 'Foggy, but your detail will still look great.', warn: false };
+      if (WMO.drizzle.includes(code)) return { icon: 'rainy', text: 'Light rain in the forecast.', warn: true };
+      if (WMO.rain.includes(code))    return { icon: 'rainy', text: 'Rain expected this day.', warn: true };
+      if (WMO.snow.includes(code))    return { icon: 'ac_unit', text: 'Snow in the forecast.', warn: true };
+      if (WMO.showers.includes(code)) return { icon: 'thunderstorm', text: 'Showers expected.', warn: true };
+      if (WMO.storm.includes(code))   return { icon: 'thunderstorm', text: 'Thunderstorms forecasted.', warn: true };
+      return { icon: 'wb_sunny', text: '', warn: false };
+    }
+
+    dateEl.addEventListener('change', async () => {
+      const hint = document.getElementById('weatherHint');
+      const iconEl = document.getElementById('weatherIcon');
+      const textEl = document.getElementById('weatherText');
+      const altEl = document.getElementById('weatherAlt');
+
+      const selected = dateEl.value;
+      if (!selected) { hint.classList.add('hidden'); return; }
+
+      const daily = await fetchForecast();
+      if (!daily) { hint.classList.add('hidden'); return; }
+
+      const idx = daily.time.indexOf(selected);
+      if (idx === -1) {
+        // Date beyond 7-day forecast
+        hint.classList.add('hidden');
+        return;
+      }
+
+      const code = daily.weathercode[idx];
+      const temp = Math.round(daily.temperature_2m_max[idx]);
+      const info = weatherInfo(code);
+      if (!info.text) { hint.classList.add('hidden'); return; }
+
+      iconEl.textContent = info.icon;
+      textEl.textContent = `${info.text} High of ${temp}°F.`;
+
+      // If rain/snow, suggest the next clear day
+      if (info.warn) {
+        altEl.classList.remove('hidden');
+        let altDay = null;
+        for (let i = 0; i < daily.time.length; i++) {
+          if (i === idx) continue;
+          const dayOfWeek = new Date(daily.time[i] + 'T12:00:00').getDay();
+          if (dayOfWeek === 0) continue; // Skip Sunday
+          if (daily.precipitation_probability_max[i] < 30 && WMO.clear.includes(daily.weathercode[i])) {
+            altDay = daily.time[i];
+            break;
+          }
+        }
+        if (altDay) {
+          const d = new Date(altDay + 'T12:00:00');
+          const name = d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+          altEl.textContent = `Consider ${name} instead — clear skies!`;
+        } else {
+          altEl.classList.add('hidden');
+        }
+      } else {
+        altEl.classList.add('hidden');
+      }
+
+      hint.classList.remove('hidden');
+    });
+  })();
+
+  // ----- Live Availability (Google Calendar) -----
+  (function initAvailability() {
+    // TODO: Replace with real Google Calendar credentials once Nixon/Blake set it up
+    const GCAL_ID = "";
+    const GCAL_KEY = "";
+    if (!GCAL_ID || !GCAL_KEY) return; // Gracefully skip if not configured
+
+    const dateEl = document.getElementById('date');
+    const timeEl = document.getElementById('time');
+    if (!dateEl || !timeEl) return;
+
+    const TIME_SLOTS = {
+      '8:00 AM': 8, '10:00 AM': 10, '12:00 PM': 12, '2:00 PM': 14, '4:00 PM': 16,
+    };
+
+    dateEl.addEventListener('change', async () => {
+      const selected = dateEl.value;
+      if (!selected) return;
+
+      // Reset all options
+      [...timeEl.options].forEach(opt => {
+        opt.disabled = false;
+        opt.textContent = opt.textContent.replace(' — Booked', '');
+      });
+
+      try {
+        const dayStart = `${selected}T00:00:00-05:00`;
+        const dayEnd = `${selected}T23:59:59-05:00`;
+        const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(GCAL_ID)}/events` +
+          `?key=${GCAL_KEY}&timeMin=${dayStart}&timeMax=${dayEnd}&singleEvents=true&orderBy=startTime`;
+        const res = await fetch(url);
+        if (!res.ok) return;
+        const data = await res.json();
+
+        const bookedHours = new Set();
+        (data.items || []).forEach(event => {
+          const start = new Date(event.start.dateTime || event.start.date);
+          const end = new Date(event.end.dateTime || event.end.date);
+          for (const [label, hour] of Object.entries(TIME_SLOTS)) {
+            const slotStart = new Date(`${selected}T${String(hour).padStart(2,'0')}:00:00`);
+            if (slotStart >= start && slotStart < end) bookedHours.add(label);
+          }
+        });
+
+        [...timeEl.options].forEach(opt => {
+          if (bookedHours.has(opt.value)) {
+            opt.disabled = true;
+            opt.textContent = opt.value + ' — Booked';
+          }
+        });
+      } catch (e) {
+        console.log('Calendar availability check skipped:', e.message);
+      }
+    });
+  })();
+
   // Before/After slider
   document.querySelectorAll('[data-ba]').forEach(el => {
     const after = el.querySelector('.after-img');
@@ -1327,6 +1516,48 @@ ${data.notes || '—'}`);
     window.addEventListener('touchend', () => dragging = false);
     window.addEventListener('touchmove', e => { if (dragging) move(e.touches[0].clientX); }, {passive:true});
   });
+
+  // ----- PWA: Service Worker Registration -----
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+
+  // ----- PWA: Install Prompt -----
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const banner = document.getElementById('installBanner');
+    if (banner) banner.classList.remove('hidden');
+  });
+  function installPWA() {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => {
+      deferredPrompt = null;
+      const banner = document.getElementById('installBanner');
+      if (banner) banner.classList.add('hidden');
+    });
+  }
+  function dismissInstall() {
+    const banner = document.getElementById('installBanner');
+    if (banner) banner.classList.add('hidden');
+  }
+
+  // ----- 3D Car: Lazy Load -----
+  (function init3D() {
+    const canvas = document.getElementById('car3d-canvas');
+    if (!canvas) return;
+    // Only load on devices with decent GPU (skip very low-end mobile)
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 3 && window.innerWidth < 768) return;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        import('/js/car-scene.js').catch(e => console.log('3D scene skipped:', e.message));
+        observer.disconnect();
+      }
+    }, { rootMargin: '200px' });
+    observer.observe(canvas);
+  })();
 </script>
 </body>
 </html>

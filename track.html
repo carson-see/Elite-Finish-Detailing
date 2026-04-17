@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Track Your Detail | Elite Finish Detailing</title>
+<meta name="description" content="Track the status of your mobile car detail in real time."/>
+<meta name="theme-color" content="#050914"/>
+<link rel="icon" type="image/png" href="/images/logo-favicon-256.png"/>
+<link rel="apple-touch-icon" href="/images/logo-favicon-256.png"/>
+<link rel="manifest" href="/manifest.json"/>
+<link rel="stylesheet" href="/dist/tailwind.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background:#050914;
+    color:#ecefff;
+    background-image:
+      radial-gradient(ellipse at top right, rgba(43,63,122,0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom left, rgba(242,202,80,0.06) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+  .font-headline { font-family: 'Noto Serif', serif; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .gold-gradient-bg { background: linear-gradient(135deg,#f2ca50 0%,#d4af37 100%); }
+  .gold-gradient-text {
+    background: linear-gradient(135deg,#f2ca50 0%,#d4af37 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .gold-card {
+    position: relative;
+    background: linear-gradient(160deg, #0f1828 0%, #152138 100%);
+    border: 1px solid rgba(242,202,80,0.35);
+    border-radius: 0.25rem;
+  }
+  .glass {
+    background: rgba(5,9,20,0.82);
+    backdrop-filter: blur(24px) saturate(140%);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+  }
+  .flourish {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 10px; margin: 18px auto 0;
+  }
+  .flourish .line { width: 56px; height: 1px; background: linear-gradient(90deg, transparent, #f2ca50, transparent); }
+  .flourish .diamond { width: 6px; height: 6px; background: #f2ca50; transform: rotate(45deg); box-shadow: 0 0 8px rgba(242,202,80,0.7); }
+  .field {
+    width: 100%; background:#0a1222; color:#ecefff; padding: 14px 16px;
+    border: 1px solid rgba(58,69,107,0.5); border-radius: 0.25rem; font-family: inherit;
+    transition: all .2s ease; font-size: 15px;
+  }
+  .field:focus { outline: none; border-color:#f2ca50; box-shadow: 0 0 0 3px rgba(242,202,80,0.18); }
+
+  /* Tracker stages */
+  .stage { transition: all 0.5s ease; }
+  .stage-complete .stage-icon { background: linear-gradient(135deg,#f2ca50 0%,#d4af37 100%); color: #1a1200; }
+  .stage-complete .stage-line { background: #f2ca50; }
+  .stage-complete .stage-label { color: #f2ca50; }
+  .stage-active .stage-icon {
+    background: linear-gradient(135deg,#f2ca50 0%,#d4af37 100%); color: #1a1200;
+    animation: pulse-gold 2s ease-in-out infinite;
+  }
+  .stage-active .stage-label { color: #f2ca50; font-weight: 800; }
+  .stage-pending .stage-icon { background: #152138; color: #3a456b; border: 1px solid #3a456b; }
+  .stage-pending .stage-label { color: #3a456b; }
+  .stage-line { width: 100%; height: 3px; background: #1a2542; transition: background 0.5s ease; }
+
+  @keyframes pulse-gold {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(242,202,80,0.5); }
+    50% { box-shadow: 0 0 30px 8px rgba(242,202,80,0.35); }
+  }
+</style>
+</head>
+<body class="bg-surface text-ink selection:bg-primary selection:text-on-primary min-h-screen flex flex-col">
+
+<!-- NAV -->
+<header class="glass border-b border-outline-dim">
+  <nav class="flex justify-between items-center px-6 md:px-10 py-4 max-w-7xl mx-auto">
+    <a href="/" class="flex items-center gap-3">
+      <img src="/images/logo-favicon-256.png" alt="Elite Finish Detailing" class="h-8 w-8 rounded"/>
+      <span class="font-headline text-sm uppercase tracking-[0.2em] hidden sm:inline">Elite Finish</span>
+    </a>
+    <a href="/#book" class="gold-gradient-bg text-on-primary font-black py-2 px-6 rounded text-[10px] tracking-[0.25em] uppercase">Book Now</a>
+  </nav>
+</header>
+
+<main class="flex-1 px-6 md:px-10 py-16 md:py-24">
+  <div class="max-w-3xl mx-auto">
+
+    <!-- Lookup form (shown when no ID in URL) -->
+    <div id="lookupView" class="text-center">
+      <span class="text-primary tracking-[0.35em] uppercase text-[11px] font-black">Live Tracking</span>
+      <h1 class="font-headline text-3xl md:text-5xl mt-3 uppercase tracking-tight">Track Your Detail</h1>
+      <div class="flourish"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+      <p class="text-ink-dim mt-6 text-base max-w-lg mx-auto">Enter the tracking ID we texted you to see your detail's live status.</p>
+      <div class="mt-10 flex gap-3 max-w-md mx-auto">
+        <input class="field flex-1" type="text" id="trackInput" placeholder="e.g. NB-0418-1" autocomplete="off"/>
+        <button onclick="lookupTracker()" class="gold-gradient-bg text-on-primary font-black py-3 px-8 rounded text-[11px] tracking-[0.25em] uppercase whitespace-nowrap">Track</button>
+      </div>
+      <p id="lookupError" class="text-red-400 text-sm mt-4 hidden"></p>
+    </div>
+
+    <!-- Tracker view (shown when tracking) -->
+    <div id="trackerView" class="hidden">
+      <div class="text-center mb-12">
+        <span class="text-primary tracking-[0.35em] uppercase text-[11px] font-black">Live Status</span>
+        <h1 class="font-headline text-2xl md:text-4xl mt-3 uppercase tracking-tight">
+          Hi <span id="customerName" class="gold-gradient-text">there</span>!
+        </h1>
+        <p class="text-ink-dim mt-3 text-sm">Your detail is in progress. This page updates automatically.</p>
+      </div>
+
+      <!-- Desktop: horizontal tracker -->
+      <div class="hidden md:block gold-card p-10">
+        <div class="flex items-center" id="desktopTracker">
+          <!-- Stages inserted by JS -->
+        </div>
+        <div class="text-center mt-8">
+          <p id="statusMessage" class="text-ink-dim text-sm"></p>
+          <p id="lastUpdated" class="text-ink-dim/60 text-[10px] uppercase tracking-[0.2em] mt-2"></p>
+        </div>
+      </div>
+
+      <!-- Mobile: vertical tracker -->
+      <div class="md:hidden gold-card p-8" id="mobileTracker">
+        <!-- Stages inserted by JS -->
+        <div class="mt-6">
+          <p id="statusMessageMobile" class="text-ink-dim text-sm"></p>
+          <p id="lastUpdatedMobile" class="text-ink-dim/60 text-[10px] uppercase tracking-[0.2em] mt-2"></p>
+        </div>
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="/" class="text-primary text-sm font-bold tracking-[0.15em] uppercase hover:underline">Back to Elite Finish</a>
+      </div>
+    </div>
+
+    <!-- Not found view -->
+    <div id="notFoundView" class="hidden text-center">
+      <span class="material-symbols-outlined text-primary text-6xl mb-4">search_off</span>
+      <h2 class="font-headline text-2xl uppercase tracking-wide">Tracking ID Not Found</h2>
+      <p class="text-ink-dim mt-4">Double-check the ID we texted you, or call us directly.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <button onclick="showLookup()" class="gold-gradient-bg text-on-primary font-black py-3 px-8 rounded text-[11px] tracking-[0.25em] uppercase">Try Again</button>
+        <a href="tel:+14022784466" class="border border-primary/50 text-primary font-black py-3 px-8 rounded text-[11px] tracking-[0.25em] uppercase">Call Blake</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-primary/10 py-8 text-center text-[10px] text-ink-dim/60 tracking-[0.25em] uppercase font-bold">
+  &copy; <span id="yr"></span> Elite Finish Detailing &middot; Omaha, NE
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // ----- Configuration -----
+  // TODO: Replace with the real Google Sheet ID once Nixon/Blake set it up
+  const SHEET_ID = "";
+
+  const STAGES = [
+    { id: 'booked',    label: 'Booked',      icon: 'calendar_today', message: 'Your appointment is confirmed!' },
+    { id: 'enroute',   label: 'En Route',    icon: 'directions_car', message: 'Your detailer is on the way.' },
+    { id: 'washing',   label: 'Washing',     icon: 'water_drop',     message: 'The exterior wash is underway.' },
+    { id: 'detailing', label: 'Detailing',   icon: 'auto_awesome',   message: 'Deep cleaning in progress.' },
+    { id: 'checking',  label: 'Final Check', icon: 'verified',       message: 'Final quality inspection.' },
+    { id: 'complete',  label: 'Complete',     icon: 'check_circle',   message: 'All done! Your ride looks amazing.' },
+  ];
+
+  const STAGE_MAP = {};
+  STAGES.forEach((s, i) => STAGE_MAP[s.id] = i);
+
+  function buildDesktopTracker(activeIdx) {
+    const el = document.getElementById('desktopTracker');
+    el.innerHTML = '';
+    STAGES.forEach((s, i) => {
+      const state = i < activeIdx ? 'stage-complete' : i === activeIdx ? 'stage-active' : 'stage-pending';
+      const stageDiv = document.createElement('div');
+      stageDiv.className = `stage ${state} flex flex-col items-center flex-1`;
+      stageDiv.innerHTML = `
+        <div class="stage-icon w-12 h-12 rounded-full flex items-center justify-center mb-3">
+          <span class="material-symbols-outlined text-xl">${s.icon}</span>
+        </div>
+        <span class="stage-label text-[10px] tracking-[0.15em] uppercase font-bold">${s.label}</span>
+      `;
+      el.appendChild(stageDiv);
+      if (i < STAGES.length - 1) {
+        const line = document.createElement('div');
+        line.className = `stage-line self-center mb-8 ${i < activeIdx ? 'stage-complete' : ''}`;
+        if (i < activeIdx) line.style.background = '#f2ca50';
+        el.appendChild(line);
+      }
+    });
+  }
+
+  function buildMobileTracker(activeIdx) {
+    const el = document.getElementById('mobileTracker');
+    // Clear previous stages but keep the status text
+    const statusEls = el.querySelectorAll('#statusMessageMobile, #lastUpdatedMobile');
+    const frag = document.createDocumentFragment();
+    STAGES.forEach((s, i) => {
+      const state = i < activeIdx ? 'stage-complete' : i === activeIdx ? 'stage-active' : 'stage-pending';
+      const row = document.createElement('div');
+      row.className = `stage ${state} flex items-center gap-4 ${i > 0 ? 'mt-1' : ''}`;
+      row.innerHTML = `
+        <div class="flex flex-col items-center">
+          <div class="stage-icon w-10 h-10 rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-lg">${s.icon}</span>
+          </div>
+          ${i < STAGES.length - 1 ? '<div class="stage-line w-[3px] h-8 mt-1" style="' + (i < activeIdx ? 'background:#f2ca50' : '') + '"></div>' : ''}
+        </div>
+        <div class="pb-${i < STAGES.length - 1 ? '8' : '0'}">
+          <span class="stage-label text-[11px] tracking-[0.15em] uppercase font-bold">${s.label}</span>
+          ${i === activeIdx ? '<p class="text-ink-dim text-[10px] mt-1">' + s.message + '</p>' : ''}
+        </div>
+      `;
+      frag.appendChild(row);
+    });
+    // Keep only the footer status div
+    const footerDiv = el.querySelector('div:last-child');
+    el.innerHTML = '';
+    el.appendChild(frag);
+    if (footerDiv) el.appendChild(footerDiv);
+  }
+
+  function showTracker(name, stageId, updatedAt) {
+    const idx = STAGE_MAP[stageId] ?? 0;
+    document.getElementById('lookupView').classList.add('hidden');
+    document.getElementById('notFoundView').classList.add('hidden');
+    document.getElementById('trackerView').classList.remove('hidden');
+    document.getElementById('customerName').textContent = name || 'there';
+
+    buildDesktopTracker(idx);
+    buildMobileTracker(idx);
+
+    const msg = STAGES[idx].message;
+    document.getElementById('statusMessage').textContent = msg;
+    const smm = document.getElementById('statusMessageMobile');
+    if (smm) smm.textContent = msg;
+
+    const timeStr = updatedAt ? 'Last updated: ' + new Date(updatedAt).toLocaleString() : '';
+    document.getElementById('lastUpdated').textContent = timeStr;
+    const lum = document.getElementById('lastUpdatedMobile');
+    if (lum) lum.textContent = timeStr;
+  }
+
+  function showLookup() {
+    document.getElementById('trackerView').classList.add('hidden');
+    document.getElementById('notFoundView').classList.add('hidden');
+    document.getElementById('lookupView').classList.remove('hidden');
+    document.getElementById('lookupError').classList.add('hidden');
+  }
+
+  function showNotFound() {
+    document.getElementById('lookupView').classList.add('hidden');
+    document.getElementById('trackerView').classList.add('hidden');
+    document.getElementById('notFoundView').classList.remove('hidden');
+  }
+
+  // Parse Google Sheets JSON response
+  function parseSheetData(text) {
+    const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?$/);
+    if (!match) return [];
+    const json = JSON.parse(match[1]);
+    const cols = json.table.cols.map(c => c.label.toLowerCase().trim());
+    return json.table.rows.map(r => {
+      const obj = {};
+      r.c.forEach((cell, i) => { obj[cols[i]] = cell ? (cell.v ?? '') : ''; });
+      return obj;
+    });
+  }
+
+  async function fetchTracker(trackId) {
+    if (!SHEET_ID) {
+      // Demo mode when sheet isn't configured
+      return demoData(trackId);
+    }
+    try {
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+      const res = await fetch(url);
+      const text = await res.text();
+      const rows = parseSheetData(text);
+      return rows.find(r => (r.id || '').toLowerCase() === trackId.toLowerCase()) || null;
+    } catch (e) {
+      console.error('Sheet fetch error:', e);
+      return null;
+    }
+  }
+
+  // Demo data for testing before the Google Sheet is connected
+  function demoData(id) {
+    const demos = {
+      'demo': { id: 'demo', customer_name: 'Demo Customer', status: 'detailing', updated_at: new Date().toISOString() },
+      'demo-done': { id: 'demo-done', customer_name: 'Jane', status: 'complete', updated_at: new Date().toISOString() },
+      'demo-new': { id: 'demo-new', customer_name: 'John', status: 'booked', updated_at: new Date().toISOString() },
+    };
+    return demos[id.toLowerCase()] || null;
+  }
+
+  async function lookupTracker() {
+    const input = document.getElementById('trackInput');
+    const id = input.value.trim();
+    if (!id) {
+      const err = document.getElementById('lookupError');
+      err.textContent = 'Please enter a tracking ID.';
+      err.classList.remove('hidden');
+      return;
+    }
+    // Update URL without reload
+    history.replaceState(null, '', '/track.html?id=' + encodeURIComponent(id));
+    await loadTracker(id);
+  }
+
+  async function loadTracker(id) {
+    const data = await fetchTracker(id);
+    if (!data) {
+      showNotFound();
+      return;
+    }
+    showTracker(data.customer_name || data.name || '', data.status || 'booked', data.updated_at || '');
+  }
+
+  // On page load: check URL for tracking ID
+  const params = new URLSearchParams(window.location.search);
+  const urlId = params.get('id');
+  if (urlId) {
+    loadTracker(urlId);
+  }
+
+  // Enter key support on input
+  document.getElementById('trackInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') lookupTracker();
+  });
+
+  // Auto-refresh every 30 seconds if actively tracking
+  setInterval(() => {
+    if (urlId || document.getElementById('trackerView').classList.contains('hidden') === false) {
+      const currentId = new URLSearchParams(window.location.search).get('id');
+      if (currentId) loadTracker(currentId);
+    }
+  }, 30000);
+
+  // Service worker
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
+</script>
+</body>
+</html>

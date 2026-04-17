@@ -111,7 +111,43 @@ If this feels overwhelming later, any dev-for-hire can do these edits in 10 minu
 
 ---
 
-## 5. What is NOT in this site yet
+## 5. Google Calendar — live availability on the booking form (free)
+1. Open Google Calendar on your phone or at https://calendar.google.com.
+2. Create a new calendar called **"Elite Finish Bookings"**.
+3. When you confirm an appointment, add an event to this calendar at the booked time slot (8 AM, 10 AM, 12 PM, 2 PM, or 4 PM).
+4. Make the calendar **public**: Settings → Access permissions → Make available to public.
+5. Copy the Calendar ID (in Settings, it looks like `abc123@group.calendar.google.com`).
+6. Go to https://console.cloud.google.com → create a project → enable the "Google Calendar API" → create an API key (no billing needed at this volume).
+7. In `index.html`, find these lines near the bottom:
+   ```js
+   const GCAL_ID = "";
+   const GCAL_KEY = "";
+   ```
+   Paste your Calendar ID and API key between the quotes.
+8. Save, commit, push. Now when customers pick a date, booked time slots show as greyed out.
+
+**How it works for you:** Just use Google Calendar like normal. Block off times when you're busy. The website reads your calendar and disables those slots automatically.
+
+## 6. Google Sheet — "Track Your Detailer" feature (free)
+1. Create a new Google Sheet called **"Elite Finish Tracker"**.
+2. In Row 1, create these column headers: `id`, `customer_name`, `phone`, `status`, `updated_at`
+3. When a booking is confirmed, add a row with a simple ID (e.g., `NB-0418-1`), the customer's name, phone, and set status to `booked`.
+4. Text the customer their tracking link: `elitefinishomaha.com/track.html?id=NB-0418-1`
+5. As you work, update the status column to: `enroute`, `washing`, `detailing`, `checking`, or `complete`.
+6. Publish the sheet: File → Share → Publish to web → Entire document → CSV → Publish.
+7. Copy the Sheet ID from the URL (the long string between `/d/` and `/edit`).
+8. In `track.html`, find this line:
+   ```js
+   const SHEET_ID = "";
+   ```
+   Paste your Sheet ID between the quotes.
+9. Save, commit, push. Customers can now track their detail in real time!
+
+**Demo mode:** Before connecting a sheet, customers can test with the IDs `demo`, `demo-done`, or `demo-new` to see how the tracker works.
+
+**Valid status values:** `booked` → `enroute` → `washing` → `detailing` → `checking` → `complete`
+
+## 7. What is NOT in this site yet
 
 These are fine to add later when there's a real need:
 
@@ -134,6 +170,8 @@ These are fine to add later when there's a real need:
 | Phone numbers | Footer, About section, JSON-LD `founder`, JSON-LD `telephone` |
 | Service areas | Footer + JSON-LD `areaServed` |
 | Booking endpoint | `FORMSPREE_ENDPOINT` constant in the `<script>` block |
+| Detailer tracker | `track.html` + Google Sheet (see Section 6) |
+| Live availability | Google Calendar API keys in `index.html` (see Section 5) |
 | Agent discovery | `agents.json`, `.well-known/agent-card.json`, `.well-known/openapi.yaml` |
 | LLM guide | `llms.txt` |
 | Design system docs | `DESIGN.md`, `obsidian_gold/DESIGN.md` |

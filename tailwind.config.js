@@ -4,6 +4,7 @@ module.exports = {
   content: [
     "./index.html",
     "./privacy.html",
+    "./track.html",
   ],
   // Keep the class list that the forms and container-queries plugins emit.
   // We don't actually load the plugins here (the standalone binary doesn't bundle them)
