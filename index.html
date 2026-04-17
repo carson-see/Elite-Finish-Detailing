@@ -56,11 +56,18 @@
   ],
   "description": "Mobile car detailing service based in Shelby, NE serving the greater Omaha metro. Interior, exterior, or both — booked online, cash on completion.",
   "slogan": "Drive Clean. Drive Confident.",
+  "alternateName": "Elite Finish Omaha",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Shelby",
     "addressRegion": "NE",
+    "postalCode": "68662",
     "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "41.1895",
+    "longitude": "-97.4342"
   },
   "areaServed": [
     { "@type": "City", "name": "Omaha" },
@@ -72,9 +79,16 @@
     { "@type": "City", "name": "Shelby" }
   ],
   "founder": [
-    { "@type": "Person", "name": "Nixon Thelen", "telephone": "+14026797198" },
-    { "@type": "Person", "name": "Blake Schmidt", "telephone": "+14022784466" }
+    { "@type": "Person", "name": "Nixon Thelen", "jobTitle": "Co-Owner" },
+    { "@type": "Person", "name": "Blake Schmidt", "jobTitle": "Co-Owner" }
   ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+14022784466",
+    "contactType": "reservations",
+    "email": "bookings@elitefinishomaha.com",
+    "availableLanguage": "English"
+  },
   "openingHoursSpecification": [{
     "@type": "OpeningHoursSpecification",
     "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
@@ -235,9 +249,28 @@
 }
 </script>
 
-<!-- Preconnect to font origins for a faster first paint -->
+<!-- WebSite schema — baseline site identity for AI crawlers -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Elite Finish Detailing",
+  "alternateName": "Elite Finish Omaha",
+  "url": "https://elitefinishomaha.com/",
+  "description": "Mobile car detailing service in the Omaha, NE metro area.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Elite Finish Detailing",
+    "url": "https://elitefinishomaha.com/"
+  }
+}
+</script>
+
+<!-- Preconnect to font origins and image CDN for a faster first paint -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://images.unsplash.com"/>
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=2400&q=80"/>
 
 <!-- Precompiled Tailwind (replaces the ~300KB cdn.tailwindcss.com JIT runtime) -->
 <link rel="stylesheet" href="/dist/tailwind.css"/>
@@ -433,7 +466,8 @@
   <div class="absolute inset-0 z-0">
     <img class="w-full h-full object-cover object-[65%_center]"
       src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=2400&q=80"
-      alt="Freshly detailed luxury sedan — mobile car detailing by Elite Finish in Omaha, NE"/>
+      alt="Freshly detailed luxury sedan — mobile car detailing by Elite Finish in Omaha, NE"
+      width="2400" height="1600" fetchpriority="high"/>
     <!-- Left-to-right fade: opaque on the left, transparent on the right so the car shows through -->
     <div class="absolute inset-0 bg-gradient-to-r from-surface from-10% via-surface/85 via-45% to-transparent to-75%"></div>
     <!-- Bottom fade to anchor content against the section below -->
@@ -766,9 +800,11 @@
           <span class="corner-tag top-3 left-3">Before</span>
           <span class="corner-tag top-3 right-3">After</span>
           <img class="w-full h-full object-cover before-img" alt="Car interior before mobile detailing in Omaha — Elite Finish Detailing"
-            src="https://images.unsplash.com/photo-1542367592-8849eb950fd8?auto=format&fit=crop&w=1200&q=80"/>
+            src="https://images.unsplash.com/photo-1542367592-8849eb950fd8?auto=format&fit=crop&w=1200&q=80"
+            width="1200" height="900" loading="lazy"/>
           <img class="w-full h-full object-cover after-img" alt="Car interior after mobile detailing in Omaha — Elite Finish Detailing"
-            src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=80"/>
+            src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=80"
+            width="1200" height="900" loading="lazy"/>
           <div class="handle"></div>
         </div>
         <figcaption class="px-6 py-4 text-[11px] tracking-[0.2em] uppercase text-ink-dim font-bold">Interior Detail &mdash; Full Vacuum + Surface Cleaning</figcaption>
@@ -778,9 +814,11 @@
           <span class="corner-tag top-3 left-3">Before</span>
           <span class="corner-tag top-3 right-3">After</span>
           <img class="w-full h-full object-cover before-img" alt="Car exterior before mobile wash in Omaha — Elite Finish Detailing"
-            src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80"/>
+            src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80"
+            width="1200" height="900" loading="lazy"/>
           <img class="w-full h-full object-cover after-img" alt="Car exterior after mobile wash in Omaha — Elite Finish Detailing"
-            src="https://images.unsplash.com/photo-1610647752706-3bb12232b3ab?auto=format&fit=crop&w=1200&q=80"/>
+            src="https://images.unsplash.com/photo-1610647752706-3bb12232b3ab?auto=format&fit=crop&w=1200&q=80"
+            width="1200" height="900" loading="lazy"/>
           <div class="handle"></div>
         </div>
         <figcaption class="px-6 py-4 text-[11px] tracking-[0.2em] uppercase text-ink-dim font-bold">Exterior Foam Bath &mdash; Wheels, Tires, Glass</figcaption>
