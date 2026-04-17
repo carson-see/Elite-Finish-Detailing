@@ -226,14 +226,13 @@ let progress = 0;
 let targetProgress = 0;
 
 function updateProgress() {
-  const rect = container.getBoundingClientRect();
+  // Use the parent section for a wider scroll range
+  const section = container.closest('section') || container;
+  const rect = section.getBoundingClientRect();
   const viewHeight = window.innerHeight;
-  // Progress goes from 0 (section just entering view) to 1 (section leaving view)
-  const start = viewHeight;
-  const end = -rect.height;
-  const range = start - end;
-  const current = start - rect.top;
-  targetProgress = Math.max(0, Math.min(1, current / range));
+  // 0 when section top hits viewport bottom, 1 when section bottom hits viewport top
+  const raw = (viewHeight - rect.top) / (viewHeight + rect.height);
+  targetProgress = Math.max(0, Math.min(1, raw));
 }
 
 window.addEventListener('scroll', updateProgress, { passive: true });
@@ -246,7 +245,7 @@ function animate() {
   time += 0.016;
 
   // Smooth progress interpolation
-  progress += (targetProgress - progress) * 0.05;
+  progress += (targetProgress - progress) * 0.12;
   carMaterial.uniforms.uProgress.value = progress;
   carMaterial.uniforms.uTime.value = time;
 
