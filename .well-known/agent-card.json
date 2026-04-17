@@ -1,0 +1,136 @@
+{
+  "name": "Elite Finish Detailing",
+  "description": "Mobile car detailing in Omaha, NE. Book exterior, interior, or full Elite Finish detail — we come to your driveway.",
+  "url": "https://elitefinishomaha.com/",
+  "provider": {
+    "organization": "Elite Finish Detailing",
+    "url": "https://elitefinishomaha.com/"
+  },
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "defaultInputModes": ["application/json"],
+  "defaultOutputModes": ["application/json"],
+  "skills": [
+    {
+      "id": "book_detailing_appointment",
+      "name": "Book a Detailing Appointment",
+      "description": "Schedule a mobile car detailing appointment in the Omaha metro area. Services: Exterior Detail, Interior Detail, or Elite Finish (both). Vehicles: Car, Truck, SUV, Van, Exotic/Classic. Pricing: Cars $40–$100, Trucks $50–$120, SUVs $60–$140, Vans $70–$150. Add-ons: Excessive pet hair (+$15), Excessive trash (+$15). Travel fees: Free (Shelby area), +$10 (10–20 mi), +$20 (20+ mi). Hours: Mon–Sat 8 AM–6 PM.",
+      "tags": ["booking", "car-detailing", "mobile-service", "omaha"],
+      "examples": [
+        "Book an exterior detail for my truck on Saturday at 10 AM",
+        "I need a full Elite Finish for my SUV next Wednesday",
+        "Schedule an interior detail at 123 Oak St, Omaha"
+      ],
+      "inputModes": ["application/json"],
+      "outputModes": ["application/json"],
+      "inputSchema": {
+        "type": "object",
+        "required": ["name", "phone", "email", "vehicle", "service", "date", "time", "address"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Customer's full name"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Customer's phone number, e.g. (402) 555-0123"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Customer's email address"
+          },
+          "vehicle": {
+            "type": "string",
+            "enum": ["Car", "Truck", "SUV", "Van", "Exotic / Classic"],
+            "description": "Vehicle type"
+          },
+          "service": {
+            "type": "string",
+            "enum": ["Exterior", "Interior", "Both (Elite Finish)", "Custom Quote"],
+            "description": "Service type. 'Both (Elite Finish)' is the full interior + exterior combo at best value."
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Preferred appointment date (YYYY-MM-DD). Must be today or later. Mon–Sat only."
+          },
+          "time": {
+            "type": "string",
+            "enum": ["8 AM", "10 AM", "12 PM", "2 PM", "4 PM"],
+            "description": "Preferred appointment time slot"
+          },
+          "address": {
+            "type": "string",
+            "description": "Service address where the vehicle is parked (street, city, ZIP)"
+          },
+          "addons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["Pet hair", "Trash"]
+            },
+            "description": "Optional add-ons: 'Pet hair' (+$15 for excessive pet hair), 'Trash' (+$15 for excessive trash)"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional notes about the vehicle. For exotic/classic cars, include year/make/model."
+          }
+        }
+      }
+    },
+    {
+      "id": "get_pricing",
+      "name": "Get Detailing Pricing",
+      "description": "Returns the full pricing matrix for Elite Finish Detailing services.",
+      "tags": ["pricing", "inquiry"],
+      "inputModes": ["application/json"],
+      "outputModes": ["application/json"],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "vehicle": {
+            "type": "string",
+            "enum": ["Car", "Truck", "SUV", "Van"],
+            "description": "Optional: filter pricing to a specific vehicle type"
+          },
+          "service": {
+            "type": "string",
+            "enum": ["Exterior", "Interior", "Elite Finish"],
+            "description": "Optional: filter pricing to a specific service"
+          }
+        }
+      }
+    }
+  ],
+  "pricing": {
+    "car":   { "exterior": 40,  "interior": 60,  "elite_finish": 100 },
+    "truck": { "exterior": 50,  "interior": 70,  "elite_finish": 120 },
+    "suv":   { "exterior": 60,  "interior": 80,  "elite_finish": 140 },
+    "van":   { "exterior": 70,  "interior": 80,  "elite_finish": 150 }
+  },
+  "addons": {
+    "excessive_pet_hair": 15,
+    "excessive_trash": 15
+  },
+  "travel_fees": {
+    "shelby_area": 0,
+    "10_to_20_miles": 10,
+    "over_20_miles": 20
+  },
+  "service_area": ["Omaha", "Elkhorn", "Papillion", "Gretna", "Bennington", "Council Bluffs", "Shelby"],
+  "hours": {
+    "monday_through_saturday": "8:00 AM – 6:00 PM",
+    "sunday": "Closed"
+  },
+  "payment_methods": ["Cash", "Bitcoin (BTC)", "Solana (SOL)"],
+  "payment_note": "Cash on completion or crypto via Coinbase Commerce link texted after service.",
+  "contact": {
+    "phone_blake": "+14022784466",
+    "phone_nixon": "+14026797198",
+    "email": "bookings@elitefinishomaha.com"
+  }
+}

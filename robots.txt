@@ -39,3 +39,9 @@ User-agent: CCBot
 Allow: /
 
 Sitemap: https://elitefinishomaha.com/sitemap.xml
+
+# Agent discovery
+# A2A Agent Card: https://elitefinishomaha.com/.well-known/agent-card.json
+# agents.json:    https://elitefinishomaha.com/agents.json
+# OpenAPI spec:   https://elitefinishomaha.com/.well-known/openapi.yaml
+# LLM guide:      https://elitefinishomaha.com/llms.txt

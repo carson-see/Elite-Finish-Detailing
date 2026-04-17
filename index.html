@@ -17,6 +17,11 @@
 <link rel="icon" type="image/png" href="/images/logo-favicon-256.png"/>
 <link rel="apple-touch-icon" href="/images/logo-favicon-256.png"/>
 
+<!-- Agent & LLM discovery -->
+<link rel="alternate" type="application/json" href="/agents.json" title="Agent API specification"/>
+<link rel="alternate" type="application/json" href="/.well-known/agent-card.json" title="A2A Agent Card"/>
+<link rel="alternate" type="text/plain" href="/llms.txt" title="LLM site guide"/>
+
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://elitefinishomaha.com/"/>
@@ -48,7 +53,7 @@
   "telephone": "+14022784466",
   "priceRange": "$40–$150",
   "currenciesAccepted": "USD",
-  "paymentAccepted": "Cash",
+  "paymentAccepted": "Cash, Cryptocurrency (Bitcoin, Solana)",
   "sameAs": [
     "https://www.facebook.com/share/1AyonPwFKG/",
     "https://www.instagram.com/3litefinishdetailing/",
@@ -95,6 +100,21 @@
     "opens": "08:00",
     "closes": "18:00"
   }],
+  "potentialAction": {
+    "@type": "ReserveAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://elitefinishomaha.com/#book",
+      "actionPlatform": [
+        "http://schema.org/DesktopWebPlatform",
+        "http://schema.org/MobileWebPlatform"
+      ]
+    },
+    "result": {
+      "@type": "Reservation",
+      "name": "Mobile Car Detailing Appointment"
+    }
+  },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Mobile Detailing Services",
@@ -231,10 +251,10 @@
     },
     {
       "@type": "Question",
-      "name": "Is cash the only payment option?",
+      "name": "What payment do you accept?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, for now. Cash on completion keeps pricing simple and our overhead low, which is how we offer professional mobile detailing starting at $40. No card readers, no tips expected, no surprise fees at the door."
+        "text": "Cash on completion or crypto (Bitcoin and Solana). After your detail, we can text you a secure payment link if you'd rather pay with BTC or SOL. No card readers, no tips expected, no surprise fees."
       }
     },
     {
@@ -493,7 +513,7 @@
         to <span class="gold-gradient-text italic normal-case font-normal">you.</span>
       </p>
       <p class="text-ink-dim text-lg md:text-xl max-w-xl font-light leading-relaxed">
-        Mobile car detailing in Omaha, delivered to your driveway. Elite Finish brings a full interior, exterior, or both detail to your home or office &mdash; booked online in 60 seconds, cash on completion.
+        Mobile car detailing in Omaha, delivered to your driveway. Elite Finish brings a full interior, exterior, or both detail to your home or office &mdash; booked online in 60 seconds, pay with cash or crypto.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 pt-2">
         <a href="#book" class="gold-gradient-bg text-on-primary font-black py-5 px-10 rounded text-[12px] tracking-[0.25em] uppercase hover:shadow-[0_0_40px_rgba(242,202,80,0.55)] transition text-center">
@@ -512,7 +532,7 @@
       <div class="flex flex-wrap gap-x-10 gap-y-4 pt-4 text-[11px] tracking-[0.15em] uppercase text-ink-dim font-bold">
         <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">home_work</span>We come to you</div>
         <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">schedule</span>60-second booking</div>
-        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">payments</span>Cash on completion</div>
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">payments</span>Cash or crypto</div>
       </div>
     </div>
 
@@ -579,8 +599,8 @@
       <div class="gold-card p-10 text-center">
         <div class="flex justify-center mb-6"><div class="gold-badge"><span class="material-symbols-outlined text-primary text-3xl">payments</span></div></div>
         <div class="text-primary font-bold tracking-[0.25em] uppercase text-[10px] mb-3">Step 03</div>
-        <h3 class="font-headline text-2xl uppercase tracking-wide mb-4">Pay Cash</h3>
-        <p class="text-ink-dim text-sm leading-relaxed">Cash payment when we finish. Simple and straightforward &mdash; no hidden fees, no surprises.</p>
+        <h3 class="font-headline text-2xl uppercase tracking-wide mb-4">Pay Your Way</h3>
+        <p class="text-ink-dim text-sm leading-relaxed">Cash or crypto when we finish. We accept Bitcoin and Solana &mdash; no hidden fees, no surprises.</p>
       </div>
     </div>
   </div>
@@ -1053,11 +1073,11 @@
 
       <details class="gold-card p-6 md:p-8 group">
         <summary class="flex items-center justify-between cursor-pointer list-none">
-          <h3 class="font-headline text-lg md:text-xl uppercase tracking-wide pr-4">Is cash the only payment option?</h3>
+          <h3 class="font-headline text-lg md:text-xl uppercase tracking-wide pr-4">What payment do you accept?</h3>
           <span class="material-symbols-outlined text-primary text-3xl transition-transform group-open:rotate-45">add</span>
         </summary>
         <p class="text-ink-dim text-sm md:text-base leading-relaxed mt-4">
-          Yes, for now. Cash on completion keeps pricing simple and our overhead low, which is how we offer professional mobile detailing starting at $40. No card readers, no tips expected, no surprise fees at the door.
+          Cash on completion or crypto. We accept Bitcoin (BTC) and Solana (SOL) &mdash; after your detail, we'll text you a secure payment link if you'd rather pay with crypto. No card readers, no tips expected, no surprise fees.
         </p>
       </details>
 

@@ -1,0 +1,65 @@
+{
+  "version": "1.0",
+  "name": "Elite Finish Detailing",
+  "description": "Mobile car detailing in Omaha, NE — exterior, interior, and full Elite Finish packages delivered to your driveway.",
+  "url": "https://elitefinishomaha.com/",
+  "logo": "https://elitefinishomaha.com/images/logo-favicon-256.png",
+  "contact": {
+    "email": "bookings@elitefinishomaha.com",
+    "phone": "+14022784466"
+  },
+  "agent_card": "https://elitefinishomaha.com/.well-known/agent-card.json",
+  "endpoints": [
+    {
+      "id": "book_appointment",
+      "name": "Book Detailing Appointment",
+      "description": "Submit a booking request for mobile car detailing. The team confirms via text within 30 minutes.",
+      "method": "POST",
+      "url": "https://formspree.io/f/meepbwoz",
+      "headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      "parameters": [
+        { "name": "name",    "type": "string", "required": true,  "description": "Customer's full name" },
+        { "name": "phone",   "type": "string", "required": true,  "description": "Phone number, e.g. (402) 555-0123" },
+        { "name": "email",   "type": "string", "required": true,  "description": "Email address" },
+        { "name": "vehicle", "type": "string", "required": true,  "description": "Vehicle type: Car, Truck, SUV, Van, or Exotic / Classic" },
+        { "name": "service", "type": "string", "required": true,  "description": "Service: Exterior, Interior, Both (Elite Finish), or Custom Quote" },
+        { "name": "date",    "type": "string", "required": true,  "description": "Preferred date (YYYY-MM-DD), Mon–Sat only" },
+        { "name": "time",    "type": "string", "required": true,  "description": "Time slot: 8 AM, 10 AM, 12 PM, 2 PM, or 4 PM" },
+        { "name": "address", "type": "string", "required": true,  "description": "Service address (street, city, ZIP)" },
+        { "name": "addons",  "type": "array",  "required": false, "description": "Add-ons: 'Pet hair' (+$15), 'Trash' (+$15)" },
+        { "name": "notes",   "type": "string", "required": false, "description": "Notes about the vehicle" }
+      ],
+      "response": {
+        "success": "Booking request received. The team will text the customer within 30 minutes to confirm.",
+        "payment": "Cash on completion or crypto (Bitcoin / Solana) via a Coinbase Commerce link texted after service."
+      }
+    }
+  ],
+  "pricing": {
+    "currency": "USD",
+    "matrix": {
+      "car":   { "exterior": 40,  "interior": 60,  "elite_finish": 100 },
+      "truck": { "exterior": 50,  "interior": 70,  "elite_finish": 120 },
+      "suv":   { "exterior": 60,  "interior": 80,  "elite_finish": 140 },
+      "van":   { "exterior": 70,  "interior": 80,  "elite_finish": 150 }
+    },
+    "addons": {
+      "excessive_pet_hair": 15,
+      "excessive_trash": 15
+    },
+    "travel_fees": {
+      "shelby_area_free": 0,
+      "10_to_20_miles": 10,
+      "over_20_miles": 20
+    },
+    "exotic_classic": "Custom quote — contact for consultation"
+  },
+  "service_area": ["Omaha", "Elkhorn", "Papillion", "Gretna", "Bennington", "Council Bluffs", "Shelby"],
+  "hours": {
+    "monday_saturday": "8:00 AM – 6:00 PM",
+    "sunday": "Closed"
+  }
+}

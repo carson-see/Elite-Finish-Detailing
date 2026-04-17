@@ -47,7 +47,17 @@ All of these should be created by **you** (Nixon or Blake) using a real business
 
 **How to use them:** you can either (a) manually text the right link to each customer after the detail, or (b) embed them on a "Thanks for booking" page later. For v1, manual texting is fine.
 
-### C. Google Business Profile — biggest lever for local SEO (free)
+### C. Coinbase Commerce — for crypto payment (free account, 1% per transaction)
+1. Go to https://commerce.coinbase.com and sign up with a business email.
+2. Connect your Bitcoin (BTC) and Solana (SOL) wallets. If you don't have wallets yet, Coinbase will walk you through creating them.
+3. Optional: enable auto-convert to USDC (stablecoin) so you don't have to worry about price swings.
+4. In the dashboard, go to **Payment Links** → **Create payment link**.
+5. Create **12 payment links** — one for each vehicle × service combo (same list as Stripe below).
+6. Save all 12 URLs. After a detail, text the matching crypto link to the customer if they want to pay with BTC or SOL.
+
+**Why Coinbase Commerce:** 1% fee (vs Stripe's ~3%), supports Bitcoin and Solana out of the box, hosted checkout pages (no code on the site), and customers trust the Coinbase brand. The site already advertises crypto payment — these links make it real.
+
+### D. Google Business Profile — biggest lever for local SEO (free)
 1. Go to https://www.google.com/business and claim "Elite Finish Detailing" as a business.
 2. Set the category to "Car Detailing Service."
 3. Mark yourselves as a "service-area business" that serves customers at their location (not a storefront).
@@ -124,4 +134,6 @@ These are fine to add later when there's a real need:
 | Phone numbers | Footer, About section, JSON-LD `founder`, JSON-LD `telephone` |
 | Service areas | Footer + JSON-LD `areaServed` |
 | Booking endpoint | `FORMSPREE_ENDPOINT` constant in the `<script>` block |
+| Agent discovery | `agents.json`, `.well-known/agent-card.json`, `.well-known/openapi.yaml` |
+| LLM guide | `llms.txt` |
 | Design system docs | `DESIGN.md`, `obsidian_gold/DESIGN.md` |

@@ -7,15 +7,33 @@
 
 ## Pricing
 - [Pricing Table](https://elitefinishomaha.com/#pricing): Flat-rate pricing by vehicle type. Cars $40–$100, Trucks $50–$120, SUVs $60–$140, Vans $70–$150. Exotic and classic cars quoted individually.
+- Add-ons: Excessive pet hair +$15, excessive trash +$15.
+- Travel fees: Free (Shelby area), +$10 (10–20 miles), +$20 (20+ miles).
+
+## Booking
+- [Book Online](https://elitefinishomaha.com/#book): Fill out the form with name, phone, email, vehicle type, service, preferred date, preferred time, and service address.
+- Available time slots: 8 AM, 10 AM, 12 PM, 2 PM, 4 PM (Monday–Saturday).
+- The team texts back within 30 minutes to confirm.
+- For agents: POST booking data as JSON to https://formspree.io/f/meepbwoz with fields: name, phone, email, vehicle, service, date, time, address, addons (optional), notes (optional).
+- Machine-readable specs: [OpenAPI](https://elitefinishomaha.com/.well-known/openapi.yaml), [Agent Card](https://elitefinishomaha.com/.well-known/agent-card.json), [agents.json](https://elitefinishomaha.com/agents.json).
+
+## Payment
+- Cash on completion at the service address, or crypto (Bitcoin / Solana) via a secure Coinbase Commerce link texted after service. No card readers, no tips expected, no surprise fees.
 
 ## Service Area
 - [Omaha Metro Coverage](https://elitefinishomaha.com/#faq): Omaha, Elkhorn, Papillion, Gretna, Bennington, Council Bluffs, and Shelby. Travel fees: Free (Shelby area), +$10 (10–20 miles), +$20 (20+ miles).
+
+## Hours
+- Monday–Saturday: 8 AM – 6 PM
+- Sunday: Closed
 
 ## FAQ
 - [Frequently Asked Questions](https://elitefinishomaha.com/#faq): Self-contained water and power, detail timing (45 min–3 hrs), service differences, neighborhoods served, cash-only payment, exotic car care.
 
 ## Contact
-- [Book Online](https://elitefinishomaha.com/#book): Blake Schmidt (402) 278-4466, Nixon Thelen (402) 679-7198, bookings@elitefinishomaha.com. Mon–Sat 8 AM–6 PM.
+- Blake Schmidt: (402) 278-4466
+- Nixon Thelen: (402) 679-7198
+- Email: bookings@elitefinishomaha.com
 
 ## Optional
 - [Privacy Policy](https://elitefinishomaha.com/privacy.html): Data handling and privacy information.

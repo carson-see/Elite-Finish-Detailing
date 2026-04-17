@@ -1,0 +1,88 @@
+openapi: 3.1.0
+info:
+  title: Elite Finish Detailing Booking API
+  description: >
+    Book a mobile car detailing appointment in the Omaha, NE metro area.
+    Exterior, interior, or full Elite Finish packages — we come to your driveway.
+  version: 1.0.0
+  contact:
+    name: Elite Finish Detailing
+    email: bookings@elitefinishomaha.com
+    url: https://elitefinishomaha.com/
+
+servers:
+  - url: https://formspree.io
+
+paths:
+  /f/meepbwoz:
+    post:
+      operationId: bookAppointment
+      summary: Book a detailing appointment
+      description: >
+        Submit a booking request. The team will text the customer within 30 minutes
+        to confirm date, time, and final pricing. Payment is cash on completion.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, phone, email, vehicle, service, date, time, address]
+              properties:
+                name:
+                  type: string
+                  description: Customer's full name
+                  example: Jane Doe
+                phone:
+                  type: string
+                  description: Phone number
+                  example: (402) 555-0123
+                email:
+                  type: string
+                  format: email
+                  description: Email address
+                  example: jane@example.com
+                vehicle:
+                  type: string
+                  enum: [Car, Truck, SUV, Van, Exotic / Classic]
+                  description: Vehicle type
+                service:
+                  type: string
+                  enum: [Exterior, Interior, Both (Elite Finish), Custom Quote]
+                  description: >
+                    Service type. Pricing by vehicle: Car $40/$60/$100,
+                    Truck $50/$70/$120, SUV $60/$80/$140, Van $70/$80/$150.
+                date:
+                  type: string
+                  format: date
+                  description: Preferred date (YYYY-MM-DD). Mon–Sat only.
+                time:
+                  type: string
+                  enum: [8 AM, 10 AM, 12 PM, 2 PM, 4 PM]
+                  description: Preferred time slot
+                address:
+                  type: string
+                  description: Service address (street, city, ZIP)
+                  example: 1234 Oak St, Omaha, NE 68102
+                addons:
+                  type: array
+                  items:
+                    type: string
+                    enum: [Pet hair, Trash]
+                  description: "Optional add-ons: Pet hair (+$15), Trash (+$15)"
+                notes:
+                  type: string
+                  description: Notes about the vehicle (year/make/model for exotics)
+      responses:
+        "200":
+          description: Booking request received
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                    example: true
+        "422":
+          description: Validation error (missing required fields)
